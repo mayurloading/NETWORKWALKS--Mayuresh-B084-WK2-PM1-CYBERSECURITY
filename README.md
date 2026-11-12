@@ -200,6 +200,10 @@ The Ethernet address appears on a separate adapter. The Wi-Fi adapter is the loc
 - Passive reconnaissance using theHarvester
 - Understanding API-key requirements for OSINT data sources
 - Reading Windows IP configuration and identifying a local subnet
+The detailed penetration-testing report covering the modules above is available here:\
+https://drive.google.com/file/d/1hyaDICx_7dwaPaht7FWYWTx757P4GqM7/view?usp=sharing \
+ linked in profile:-\
+ www.linkedin.com/in/mayuresh-sangle-586879268 
 
 ## Conclusion
 
