@@ -29,7 +29,7 @@ whois networkwalks.com
 | Name servers | NS6135.HOSTGATOR.COM, NS6136.HOSTGATOR.COM |
 | DNSSEC | Unsigned |
 
-![WHOIS terminal output](screenshots/01-whois.png)
+![WHOIS terminal output](screenshots01-whois.png)
 
 ### Task 2 - WhatWeb
 
@@ -51,7 +51,7 @@ whatweb networkwalks.com
 | Page title | Networkwalks Academy |
 | Redirect | HTTP to HTTPS (301) |
 
-![WhatWeb output](screenshots/02-whatweb.png)
+![WhatWeb output](screenshots02-whatweb.png)
 
 ### Task 3 - NSLookup
 
@@ -66,7 +66,7 @@ nslookup networkwalks.com
 | DNS server | `8.8.8.8` |
 | Resolved IP | `192.232.216.135` |
 
-![NSLookup output](screenshots/03-nslookup.png)
+![NSLookup output](screenshots03-nslookup.png)
 
 ### Task 4 - HTTP response headers with cURL
 
@@ -84,7 +84,7 @@ curl -I https://networkwalks.com
 - Referrer policy: `no-referrer-when-downgrade`.
 - Permissions-Policy header is present.
 
-![cURL response headers](screenshots/04-curl-headers.png)
+![cURL response headers](screenshots04-curl-headers.png)
 
 ### Task 5 - Web Application Firewall detection
 
@@ -96,7 +96,7 @@ wafw00f networkwalks.com
 
 **Result:** WAFW00F reported that `https://networkwalks.com` is behind **ModSecurity (SpiderLabs)**. The tool reported 2 requests.
 
-![WAFW00F output](screenshots/05-wafw00f.png)
+![WAFW00F output](screenshots05-wafw00f.png)
 
 ### Task 6 - DNS enumeration
 
@@ -116,7 +116,7 @@ dnsrecon -d networkwalks.com
 
 **Observation:** The SOA lookup timed out and no DNSSEC answer was returned. DNSRecon reported 8 records in the SRV enumeration.
 
-![DNSRecon output](screenshots/06-dnsrecon.png)
+![DNSRecon output](screenshots06-dnsrecon.png)
 
 ## Module 4 - Footprinting & Reconnaissance with theHarvester
 
@@ -144,7 +144,7 @@ theHarvester -d microsoft.com -l 1000 -b baidu
 
 **Observation:** Baidu returned no data for this domain at the time of the scan. Results from third-party sources can vary over time.
 
-![theHarvester Baidu output](screenshots/07-theharvester-baidu.png)
+![theHarvester Baidu output](screenshots07-theharvester-baidu.png)
 
 ### Task 2 - Search using all supported sources
 
@@ -170,7 +170,7 @@ The output showed that theHarvester read its API-key configuration file at `/etc
 
 **Observation:** Sources requiring credentials return no data until their API keys are configured in the relevant configuration file.
 
-![theHarvester all-sources output](screenshots/08-theharvester-all-sources.png)
+![theHarvester all-sources output](screenshots08-theharvester-all-sources.png)
 
 ## Module 5 - Local IP configuration evidence
 
@@ -186,9 +186,9 @@ The supplied Windows `ipconfig` screenshots show these adapter values:
 
 The Ethernet address appears on a separate adapter. The Wi-Fi adapter is the local LAN configuration shown in the supplied evidence. The screenshots supplied for this revision document IP configuration only; they do **not** include a new Zenmap host-discovery scan or topology screenshot, so no new live-host count or MAC-address results are claimed here.
 
-![Windows ipconfig adapter overview](screenshots/09-ipconfig-adapters.png)
+![Windows ipconfig adapter overview](screenshots09-ipconfig-adapters.png)
 
-![Windows Wi-Fi adapter details](screenshots/10-ipconfig-wifi-details.png)
+![Windows Wi-Fi adapter details](screenshots10-ipconfig-wifi-details.png)
 
 ## Skills Practiced
 
