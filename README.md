@@ -172,24 +172,112 @@ The output showed that theHarvester read its API-key configuration file at `/etc
 
 ![theHarvester all-sources output](08-theharvester-all-sources.png)
 
-## Module 5 - Local IP configuration evidence
+## Module 5 — Network Scanning with Zenmap
 
-The supplied Windows `ipconfig` screenshots show these adapter values:
+### Objective
+Use Zenmap, the official GUI for Nmap, to discover live hosts on a local network, identify their IP and MAC addresses, and visualize the network topology.
 
-| Adapter / field | Observed value |
+**Tool used:** Zenmap / Nmap 7.993 on Windows
+
+---
+
+### Task 1 — Download & Install Zenmap on Windows
+
+**Purpose:** Install Nmap with its Zenmap GUI from the official website (https://nmap.org/download.html).
+
+**Result:** Zenmap is installed and running on Windows. Zenmap opens with the default Intense scan profile (`nmap -T4 -A -v`).
+
+<img width="518" height="480" alt="Screenshot 2026-11-12 180355" src="https://github.com/user-attachments/assets/b70c6b75-c05d-47ae-9ae5-92488fe674dd" />
+
+
+---
+
+### Task 2 — Find Local IP Address & LAN Subnet
+
+**Command**
+```cmd
+ipconfig
+```
+
+<img width="1470" height="760" alt="Screenshot 2026-11-11 152800" src="https://github.com/user-attachments/assets/2836807c-c27a-41e2-a3e6-1b9b78aa799d" />
+
+
+<img width="1062" height="416" alt="Screenshot 2026-11-11 152935" src="https://github.com/user-attachments/assets/db4fb6db-2e9c-4f68-8275-1911476312d2" />
+
+**Purpose:** Identify the PC's local IP address and subnet.
+
+**Results (Wi-Fi adapter)**
+
+| Item | Value |
 |---|---|
-| Ethernet IPv4 | `192.168.56.1` |
-| Wi-Fi IPv4 | `192.168.29.245` |
-| Wi-Fi subnet mask | `255.255.255.0` |
-| Wi-Fi default gateway | `192.168.29.1` |
-| Wi-Fi LAN subnet | `192.168.29.0/24` |
+| IPv4 Address | 192.168.29.245 |
+| Subnet Mask | 255.255.255.0 (/24) |
+| Default Gateway | 192.168.29.1 |
+| LAN Subnet | 192.168.29.0/24 |
 
-The Ethernet address appears on a separate adapter. The Wi-Fi adapter is the local LAN configuration shown in the supplied evidence. The screenshots supplied for this revision document IP configuration only; they do **not** include a new Zenmap host-discovery scan or topology screenshot, so no new live-host count or MAC-address results are claimed here.
+The Ethernet adapter (192.168.56.1/24) is a virtual adapter, likely from VirtualBox. It has no default gateway, so it is not the LAN used for the scan.
 
-![Windows ipconfig adapter overview](09-ipconfig-adapters.png)
+---
 
-![Windows Wi-Fi adapter details](10-ipconfig-wifi-details.png)
+### Task 3 — Find Live Hosts in the Subnet
 
+**Command**
+```bash
+nmap -sn 192.168.29.0/24
+```
+
+<img width="711" height="686" alt="image" src="https://github.com/user-attachments/assets/f6799db9-5a98-4d81-a6a8-14769f849266" />
+
+
+**Purpose:** Run a Ping scan (host discovery only, no port scan) in Zenmap against the LAN subnet found in Task 2.
+
+**Result:** Nmap scanned 256 IP addresses and found **5 hosts up** in 4.95 seconds.
+
+---
+
+### Task 4 — How many hosts are live?
+
+**Answer:** 5 hosts are live, including my own PC.
+
+---
+
+### Task 5 — IP addresses of the live hosts
+
+| # | IP Address | Notes |
+|---|---|---|
+| 1 | 192.168.29.1 | Default gateway (router, shown as `reliance.reliance`), latency 0.010s |
+| 2 | 192.168.29.18 | Latency 0.13s |
+| 3 | 192.168.29.177 | Latency 0.37s |
+| 4 | 192.168.29.215 | Latency 0.27s |
+| 5 | 192.168.29.245 | My own PC (confirmed by ipconfig) |
+
+---
+
+### Task 6 — MAC addresses of the live hosts
+
+| IP Address | MAC Address | Vendor (per Nmap) |
+|---|---|---|
+| 192.168.29.1 | 9C:D4:A6:8A:86:61 | Servercom (India) Private Limited |
+| 192.168.29.18 | 04:C8:07:20:56:2A | Xiaomi Communications |
+| 192.168.29.177 | 10:76:36:0E:62:C8 | Earda Technologies |
+| 192.168.29.215 | 0A:B8:A5:73:6C:87 | Unknown |
+| 192.168.29.245 | Not shown (local host) | Use `ipconfig /all` to find it |
+
+---
+
+### Task 7 — Network Topology
+
+**Purpose:** View the scan results as a topology graph and save it as a PDF.
+
+**Steps**
+1. Opened the Topology tab in Zenmap.
+2. Turned on the Legend.
+3. Clicked Save Graphic and chose PDF.
+
+<img width="701" height="678" alt="Screenshot 2026-11-11 153334" src="https://github.com/user-attachments/assets/6f806ed5-f245-4ec1-8101-96a02aa544aa" />
+
+
+**Result:** The topology shows localhost at the center, connected to all five live hosts (192.168.29.1, .18, .177, .215 and .245).
 ## Skills Practiced
 
 - Domain footprinting and WHOIS analysis
